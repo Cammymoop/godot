@@ -806,6 +806,24 @@ Vector3 RigidBody3D::get_linear_velocity() const {
 	return linear_velocity;
 }
 
+void RigidBody3D::set_friction_context_velocity_delta_l(const Vector3 &p_velocity) {
+	friction_context_velocity_delta_l = p_velocity;
+	PhysicsServer3D::get_singleton()->body_set_state(get_rid(), PhysicsServer3D::BODY_STATE_FRICTION_VELOCITY_LEFT, friction_context_velocity_delta_l);
+}
+
+Vector3 RigidBody3D::get_friction_context_velocity_delta_l() const {
+	return friction_context_velocity_delta_l;
+}
+
+void RigidBody3D::set_friction_context_velocity_delta_r(const Vector3 &p_velocity) {
+	friction_context_velocity_delta_r = p_velocity;
+	PhysicsServer3D::get_singleton()->body_set_state(get_rid(), PhysicsServer3D::BODY_STATE_FRICTION_VELOCITY_RIGHT, friction_context_velocity_delta_r);
+}
+
+Vector3 RigidBody3D::get_friction_context_velocity_delta_r() const {
+	return friction_context_velocity_delta_r;
+}
+
 void RigidBody3D::set_angular_velocity(const Vector3 &p_velocity) {
 	angular_velocity = p_velocity;
 	PhysicsServer3D::get_singleton()->body_set_state(get_rid(), PhysicsServer3D::BODY_STATE_ANGULAR_VELOCITY, angular_velocity);
@@ -1008,6 +1026,12 @@ void RigidBody3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_linear_velocity", "linear_velocity"), &RigidBody3D::set_linear_velocity);
 	ClassDB::bind_method(D_METHOD("get_linear_velocity"), &RigidBody3D::get_linear_velocity);
 
+	ClassDB::bind_method(D_METHOD("set_friction_context_velocity_delta_l", "friction_context_velocity_delta_l"), &RigidBody3D::set_friction_context_velocity_delta_l);
+	ClassDB::bind_method(D_METHOD("get_friction_context_velocity_delta_l"), &RigidBody3D::get_friction_context_velocity_delta_l);
+
+	ClassDB::bind_method(D_METHOD("set_friction_context_velocity_delta_r", "friction_context_velocity_delta_r"), &RigidBody3D::set_friction_context_velocity_delta_r);
+	ClassDB::bind_method(D_METHOD("get_friction_context_velocity_delta_r"), &RigidBody3D::get_friction_context_velocity_delta_r);
+
 	ClassDB::bind_method(D_METHOD("set_angular_velocity", "angular_velocity"), &RigidBody3D::set_angular_velocity);
 	ClassDB::bind_method(D_METHOD("get_angular_velocity"), &RigidBody3D::get_angular_velocity);
 
@@ -1098,6 +1122,8 @@ void RigidBody3D::_bind_methods() {
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "freeze_mode", PROPERTY_HINT_ENUM, "Static,Kinematic"), "set_freeze_mode", "get_freeze_mode");
 	ADD_GROUP("Linear", "linear_");
 	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "linear_velocity", PROPERTY_HINT_NONE, "suffix:m/s"), "set_linear_velocity", "get_linear_velocity");
+	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "friction_context_velocity_delta_l", PROPERTY_HINT_NONE, "suffix:m/s"), "set_friction_context_velocity_delta_l", "get_friction_context_velocity_delta_l");
+	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "friction_context_velocity_delta_r", PROPERTY_HINT_NONE, "suffix:m/s"), "set_friction_context_velocity_delta_r", "get_friction_context_velocity_delta_r");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "linear_damp_mode", PROPERTY_HINT_ENUM, "Combine,Replace"), "set_linear_damp_mode", "get_linear_damp_mode");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "linear_damp", PROPERTY_HINT_RANGE, "0,100,0.001,or_greater"), "set_linear_damp", "get_linear_damp");
 	ADD_GROUP("Angular", "angular_");

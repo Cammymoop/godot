@@ -550,8 +550,16 @@ void GodotBodyPair3D::solve(real_t p_step) {
 
 		real_t friction = combine_friction(A, B);
 
-		Vector3 lvA = A->get_linear_velocity() + A->get_angular_velocity().cross(c.rA);
-		Vector3 lvB = B->get_linear_velocity() + B->get_angular_velocity().cross(c.rB);
+		real_t rightness_A = c.rA.normalized().dot(A->get_transform().get_basis().get_column(Vector3::AXIS_X));
+		int right_A = rightness_A > 0 ? 1 : 0;
+		Vector3 frict_A = (A->get_friction_context_velocity_delta_l() * (1. - right_A)) + (A->get_friction_context_velocity_delta_r() * right_A);
+
+		real_t rightness_B = c.rB.normalized().dot(B->get_transform().get_basis().get_column(Vector3::AXIS_X));
+		int right_B = rightness_B > 0 ? 1 : 0;
+		Vector3 frict_B = (B->get_friction_context_velocity_delta_l() * (1 - right_B)) + (B->get_friction_context_velocity_delta_r() * right_B);
+
+		Vector3 lvA = A->get_linear_velocity() + A->get_angular_velocity().cross(c.rA) + frict_A;
+		Vector3 lvB = B->get_linear_velocity() + B->get_angular_velocity().cross(c.rB) + frict_B;
 
 		Vector3 dtv = lvB - lvA;
 		real_t tn = c.normal.dot(dtv);

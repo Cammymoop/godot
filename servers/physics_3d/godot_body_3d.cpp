@@ -384,6 +384,14 @@ void GodotBody3D::set_state(PhysicsServer3D::BodyState p_state, const Variant &p
 			constant_linear_velocity = linear_velocity;
 			wakeup();
 		} break;
+		case PhysicsServer3D::BODY_STATE_FRICTION_VELOCITY_LEFT: {
+			friction_context_velocity_delta_l = p_variant;
+			wakeup();
+		} break;
+		case PhysicsServer3D::BODY_STATE_FRICTION_VELOCITY_RIGHT: {
+			friction_context_velocity_delta_r = p_variant;
+			wakeup();
+		} break;
 		case PhysicsServer3D::BODY_STATE_ANGULAR_VELOCITY: {
 			angular_velocity = p_variant;
 			constant_angular_velocity = angular_velocity;
@@ -422,6 +430,12 @@ Variant GodotBody3D::get_state(PhysicsServer3D::BodyState p_state) const {
 		} break;
 		case PhysicsServer3D::BODY_STATE_LINEAR_VELOCITY: {
 			return linear_velocity;
+		} break;
+		case PhysicsServer3D::BODY_STATE_FRICTION_VELOCITY_LEFT: {
+			return friction_context_velocity_delta_l;
+		} break;
+		case PhysicsServer3D::BODY_STATE_FRICTION_VELOCITY_RIGHT: {
+			return friction_context_velocity_delta_r;
 		} break;
 		case PhysicsServer3D::BODY_STATE_ANGULAR_VELOCITY: {
 			return angular_velocity;

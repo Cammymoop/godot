@@ -45,6 +45,9 @@ class GodotBody3D : public GodotCollisionObject3D {
 	Vector3 linear_velocity;
 	Vector3 angular_velocity;
 
+	Vector3 friction_context_velocity_delta_l;
+	Vector3 friction_context_velocity_delta_r;
+
 	Vector3 prev_linear_velocity;
 	Vector3 prev_angular_velocity;
 
@@ -210,6 +213,12 @@ public:
 
 	_FORCE_INLINE_ void set_linear_velocity(const Vector3 &p_velocity) { linear_velocity = p_velocity; }
 	_FORCE_INLINE_ Vector3 get_linear_velocity() const { return linear_velocity; }
+
+	_FORCE_INLINE_ void set_friction_context_velocity_delta_l(const Vector3 &p_velocity_delta) { friction_context_velocity_delta_l = p_velocity_delta; }
+	_FORCE_INLINE_ Vector3 get_friction_context_velocity_delta_l() const { return friction_context_velocity_delta_l; }
+
+	_FORCE_INLINE_ void set_friction_context_velocity_delta_r(const Vector3 &p_velocity_delta) { friction_context_velocity_delta_r = p_velocity_delta; }
+	_FORCE_INLINE_ Vector3 get_friction_context_velocity_delta_r() const { return friction_context_velocity_delta_r; }
 
 	_FORCE_INLINE_ void set_angular_velocity(const Vector3 &p_velocity) { angular_velocity = p_velocity; }
 	_FORCE_INLINE_ Vector3 get_angular_velocity() const { return angular_velocity; }

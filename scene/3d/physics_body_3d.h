@@ -163,6 +163,8 @@ private:
 
 	Vector3 linear_velocity;
 	Vector3 angular_velocity;
+	Vector3 friction_context_velocity_delta_l;
+	Vector3 friction_context_velocity_delta_r;
 	Basis inverse_inertia_tensor;
 	real_t gravity_scale = 1.0;
 
@@ -263,6 +265,12 @@ public:
 
 	void set_linear_velocity(const Vector3 &p_velocity);
 	Vector3 get_linear_velocity() const override;
+
+	void set_friction_context_velocity_delta_l(const Vector3 &p_velocity_delta);
+	Vector3 get_friction_context_velocity_delta_l() const;
+
+	void set_friction_context_velocity_delta_r(const Vector3 &p_velocity_delta);
+	Vector3 get_friction_context_velocity_delta_r() const;
 
 	void set_axis_velocity(const Vector3 &p_axis);
 
